@@ -1,7 +1,10 @@
 package com.example.note_project;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton addNoteBtn;
     RecyclerView recyclerView;
     ImageButton menuBtn;
+    EditText searchEditText;
     NoteAdapter noteAdapter;
 
     @Override
@@ -32,10 +36,23 @@ public class MainActivity extends AppCompatActivity {
         addNoteBtn = findViewById(R.id.add_note_btn);
         recyclerView = findViewById(R.id.recycler_view);
         menuBtn = findViewById(R.id.menu_btn);
-
+        searchEditText = findViewById(R.id.searchInput);
         addNoteBtn.setOnClickListener((v) -> startActivity(new Intent(MainActivity.this, DetailNoteActivity.class)));
         menuBtn.setOnClickListener((v) -> showMenu());
         setupRecyclerView();
+        // Thêm TextWatcher để lắng nghe thay đổi trong trường tìm kiếm
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                searchNotes(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
     void showMenu(){
@@ -66,6 +83,26 @@ public class MainActivity extends AppCompatActivity {
         noteAdapter = new NoteAdapter(options, this);
         recyclerView.setAdapter(noteAdapter);
     }
+
+    void searchNotes(String title) {
+        Query query;
+        if (title.isEmpty()) {
+            query = Utility.getCollectionReferenceForNote()
+                    .orderBy("timestamp", Query.Direction.DESCENDING);
+        } else {
+            String endTitle = title + '\uf8ff'; // Kí tự đặc biệt giúp mở rộng phạm vi tìm kiếm
+            query = Utility.getCollectionReferenceForNote()
+                    .whereGreaterThanOrEqualTo("title", title)
+                    .whereLessThanOrEqualTo("title", endTitle)
+                    .orderBy("title") // Sắp xếp theo tiêu đề để tìm chính xác chuỗi
+                    .orderBy("timestamp", Query.Direction.DESCENDING);
+        }
+        FirestoreRecyclerOptions<Note> options = new FirestoreRecyclerOptions.Builder<Note>()
+                .setQuery(query, Note.class)
+                .build();
+        noteAdapter.updateOptions(options);
+    }
+
 
     @Override
     protected void onStart() {

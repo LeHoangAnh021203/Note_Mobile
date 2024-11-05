@@ -24,15 +24,15 @@
             android:textStyle="bold"/>
 
         <ImageButton
+            android:id="@+id/back_btn"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:id="@+id/save_note_btn"
-            android:src="@drawable/baseline_done_24"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            app:tint="@color/white"
-            android:contentDescription="Save Note"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Back"
+            android:src="@drawable/baseline_close_24"
+            app:tint="@color/white" />
 
     </RelativeLayout>
 
@@ -74,18 +74,28 @@
             android:textColor="@color/black"
             android:minLines="15"
             android:gravity="top"/>
+
+        <Button
+            android:id="@+id/save_note_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add " />
+
     </LinearLayout>
 
     <TextView
+        android:id="@+id/delete_note_text_view_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/delete_note_text_view_btn"
-        android:text="Delete Note"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:textSize="18sp"
         android:layout_marginBottom="12dp"
-        android:visibility="gone"
-        android:textColor="#FF0000"/>
+        android:background="@drawable/border"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Delete Note"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </RelativeLayout>

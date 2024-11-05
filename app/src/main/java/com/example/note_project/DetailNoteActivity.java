@@ -1,9 +1,12 @@
 package com.example.note_project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,16 +18,15 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 
-import java.util.Date;
-
 public class DetailNoteActivity extends AppCompatActivity {
 
     EditText titleEditText, contentEditText;
-    ImageButton saveNoteBtn;
+    Button saveNoteBtn;
     TextView pageTitleTextView;
     String title, content, docId;
     boolean isEditMode = false;
     TextView deleteNoteTextViewBtn;
+    ImageView back_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,14 @@ public class DetailNoteActivity extends AppCompatActivity {
         saveNoteBtn = findViewById(R.id.save_note_btn);
         pageTitleTextView = findViewById(R.id.page_title);
         deleteNoteTextViewBtn = findViewById(R.id.delete_note_text_view_btn);
-
+        back_btn = findViewById(R.id.back_btn);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailNoteActivity.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
         title = getIntent().getStringExtra("title");
         content = getIntent().getStringExtra("content");
         docId = getIntent().getStringExtra("docId");

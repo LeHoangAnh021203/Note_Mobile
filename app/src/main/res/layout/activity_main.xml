@@ -1,56 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/my_primary"
+    android:orientation="vertical"
     android:padding="16dp"
     tools:context=".MainActivity">
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/title_bar_layout">
+        android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/page_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/page_title"
+            android:layout_weight="1"
             android:text="Your Notes"
-            android:textSize="32sp"
             android:textColor="@color/white"
-            android:textStyle="bold"/>
+            android:textSize="32sp"
+            android:textStyle="bold" />
 
         <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
             android:id="@+id/menu_btn"
-            android:src="@drawable/baseline_menu_24"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            app:tint="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Save Note"
-            android:background="?attr/selectableItemBackgroundBorderless"/>
+            android:src="@drawable/baseline_menu_24" />
+    </LinearLayout>
 
-    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/baseline_search_24" />
+
+        <EditText
+            android:id="@+id/searchInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Search"
+            android:padding="8dp" />
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/title_bar_layout"
-        android:id="@+id/recycler_view"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/add_note_btn"
-        app:backgroundTint="@color/white"
-    android:layout_alignParentEnd="true"
-    android:layout_alignParentBottom="true"
-    android:contentDescription="Add Note"
-    android:src="@drawable/baseline_add_24"
-    app:tint="@color/my_primary"
-    android:layout_margin="16dp"/>
-</RelativeLayout>
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="#FF24D3FE"
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add_note_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="Add Note"
+            android:src="@drawable/baseline_add_24"
+            app:backgroundTint="@color/white" />
+    </LinearLayout>
+
+</LinearLayout>
